@@ -1,8 +1,7 @@
 import express from "express";
+const router = express.Router();
 import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
-
-const router = express.Router();
 
 // route for all products
 router.get(
@@ -21,9 +20,10 @@ router.get(
 
 		if (product) {
 			return res.json(product);
+		} else {
+			res.status(404);
+			throw new Error("Resource not found");
 		}
-
-		res.status(404).json({ message: "Product not found" });
 	})
 );
 
